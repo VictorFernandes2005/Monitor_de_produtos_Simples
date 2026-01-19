@@ -6,7 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.assertj.core.api.Assertions.assertThat;;
+
+import com.victorfernandes2005.Scrapper.model.ProductModel;
+import com.victorfernandes2005.Scrapper.service.MagaluProductService;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;;
 
 @SpringBootTest
 class MonitorDeProdutosApplicationTests {
@@ -35,6 +40,24 @@ class MonitorDeProdutosApplicationTests {
 		assertThat(hello.getText()).isEqualTo("Programa Olá Mundo");
 
 		driver.quit();
+	}
+
+	@Test
+	void shouldReturnAProduct(){
+		// O produto usado precisa ser conferido antes de ser testado,
+		// pois os dados vem de terceiros e não é garantido que os dados continuarão sempre os mesmos.
+		MagaluProductService mps = new MagaluProductService(new FirefoxDriver());
+		String url = "https://www.magazineluiza.com.br/martelo-31mm-bellota-prof-cb-longo/p/cfb45af6cc/fs/fmar/?seller_id=uaiexpress1";
+		ProductModel product = mps.makeProduct(url);
+
+		String expectedName = "Martelo 31mm bellota prof.cb longo";
+		Double expectedPrice = 109.82;
+		String expectedImgPath = "https://m.magazineluiza.com.br/a-static/420x420/martelo-31mm-bellota-prof-cb-longo/uaiexpress1/116077/38818cc4b76d3178baf7a986bbbbbca8.jpeg";
+
+		assertThat(product.getName()).isEqualTo(expectedName);
+		assertThat(product.getPrice()).isCloseTo(expectedPrice, offset(0.3));
+		assertThat(product.getImgPath()).isEqualTo(expectedImgPath);
+
 	}
 
 }
