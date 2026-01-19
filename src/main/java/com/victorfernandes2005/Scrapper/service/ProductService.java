@@ -20,7 +20,7 @@ public abstract class ProductService {
      * @param url URL do produto na loja online
      * @return driverConfig
     */
-    private HashMap<String,String> getDriverConfig(String url){return null;}
+    protected HashMap<String,String> getDriverConfig(String url){return null;}
 
     /**
      * Retorna o valor de price, corretamente tratado e convertido para Double.
@@ -28,7 +28,7 @@ public abstract class ProductService {
      * @param el WebElement do price.
      * @return price
     */
-    private Double convertPriceWebElement(WebElement el){
+    protected Double convertPriceWebElement(WebElement el){
         return 0.0;
     }
 
