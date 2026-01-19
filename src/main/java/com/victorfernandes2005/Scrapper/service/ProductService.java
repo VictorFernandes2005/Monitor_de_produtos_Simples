@@ -17,10 +17,9 @@ public abstract class ProductService {
     /**
      * Retorna as chaves necessárias para que o Selenium possa acessar
      * os elementos HTML corretamente. Depende do site que ela estiver acessando.
-     * @param url URL do produto na loja online
      * @return driverConfig
     */
-    protected HashMap<String,String> getDriverConfig(String url){return null;}
+    protected HashMap<String,String> getDriverConfig(){return null;}
 
     /**
      * Retorna o valor de price, corretamente tratado e convertido para Double.
@@ -28,7 +27,7 @@ public abstract class ProductService {
      * @param el WebElement do price.
      * @return price
     */
-    protected Double convertPriceWebElement(WebElement el){
+    protected Double convertPriceWebElement(WebElement price, WebElement decimal){
         return 0.0;
     }
 
@@ -40,17 +39,21 @@ public abstract class ProductService {
     public ProductModel makeProduct(String url){
         ProductModel p = new ProductModel();
 
-        HashMap<String,String> keys = getDriverConfig(url);
+        HashMap<String,String> keys = getDriverConfig();
         driver.get(url);
 
         String pName = driver.findElement(By.cssSelector(keys.get("name"))).getText();
-        Double pPrice = convertPriceWebElement(driver.findElement(By.cssSelector(keys.get("price"))));
-        String pImgPath = driver.findElement(By.cssSelector(keys.get("imgPath"))).getAttribute("url");
-        
+        String pImgPath = driver.findElement(By.cssSelector(keys.get("imgPath"))).getAttribute("src");
+
+        WebElement pPrice = driver.findElement(By.cssSelector(keys.get("price")));
+        WebElement pPriceDecimal = driver.findElement(By.cssSelector(keys.get("priceDecimal")));
+        Double doublePrice = convertPriceWebElement(pPrice, pPriceDecimal);
 
         p.setName(pName);
-        p.setPrice(pPrice);
+        p.setPrice(doublePrice);
         p.setImgPath(pImgPath);
+
+        driver.quit();
 
         return p;
     }
