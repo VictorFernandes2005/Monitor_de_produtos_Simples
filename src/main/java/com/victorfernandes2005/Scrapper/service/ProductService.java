@@ -5,14 +5,22 @@ import java.util.HashMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.victorfernandes2005.Scrapper.model.ProductModel;
+import com.victorfernandes2005.Scrapper.repository.ProductRepository;
 
+@Service
 public abstract class ProductService {
 
-    WebDriver driver;
+    private WebDriver driver;
+
+    @Autowired
+    protected ProductRepository repository;
 
     public ProductService(WebDriver driver){ this.driver = driver;}
+    
 
     /**
      * Retorna as chaves necessárias para que o Selenium possa acessar
