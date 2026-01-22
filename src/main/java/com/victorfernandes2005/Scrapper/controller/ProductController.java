@@ -1,6 +1,9 @@
 package com.victorfernandes2005.Scrapper.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +24,10 @@ public class ProductController {
     
     public ProductController(){this.service = ProductServiceFactory.getService("magazine");}
 
-    @GetMapping("products/")
+    @GetMapping("products")
     public String viewProductsGet(Model model){
+        List<ProductModel> products = new ArrayList<ProductModel>();
+        model.addAttribute("products",products);
         return "products/get_products";
     }
 
