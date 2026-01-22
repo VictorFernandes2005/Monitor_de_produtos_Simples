@@ -1,9 +1,14 @@
 package com.victorfernandes2005.Scrapper.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-
+@Entity
 public class ProductModel {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private Double price;
     private String name;

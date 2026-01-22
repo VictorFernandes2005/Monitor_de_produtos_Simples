@@ -1,6 +1,5 @@
 package com.victorfernandes2005.Scrapper.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.victorfernandes2005.Scrapper.model.ProductModel;
 import com.victorfernandes2005.Scrapper.service.ProductService;
+import com.victorfernandes2005.Scrapper.service.ProductServiceFactory;
 
 
 @Controller
 public class ProductController {
 
-    @Autowired
-    ProductService service;
+    private ProductService service;
+    
+    public ProductController(){this.service = ProductServiceFactory.getService("magazine");}
 
     @GetMapping("products/")
     public String viewProductsGet(Model model){

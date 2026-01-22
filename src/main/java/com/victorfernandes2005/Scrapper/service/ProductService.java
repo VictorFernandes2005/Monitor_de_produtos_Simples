@@ -5,22 +5,17 @@ import java.util.HashMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.victorfernandes2005.Scrapper.model.ProductModel;
 import com.victorfernandes2005.Scrapper.repository.ProductRepository;
 
 @Service
 public abstract class ProductService {
 
-    private WebDriver driver;
+    private ProductRepository repository;
 
-    @Autowired
-    protected ProductRepository repository;
 
-    public ProductService(WebDriver driver){ this.driver = driver;}
-    
+    public ProductService(ProductRepository repository){ this.repository = repository;}
 
     /**
      * Retorna as chaves necessárias para que o Selenium possa acessar
@@ -44,7 +39,7 @@ public abstract class ProductService {
      * @param url
      * @return product
     */
-    public ProductModel makeProduct(String url){
+    public ProductModel makeProduct(WebDriver driver, String url){
         ProductModel p = new ProductModel();
 
         HashMap<String,String> keys = getDriverConfig();

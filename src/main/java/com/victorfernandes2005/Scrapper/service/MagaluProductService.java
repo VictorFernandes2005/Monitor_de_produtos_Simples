@@ -1,13 +1,14 @@
 package com.victorfernandes2005.Scrapper.service;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.victorfernandes2005.Scrapper.repository.ProductRepository;
 
 import java.util.HashMap;
 
 public class MagaluProductService extends ProductService{
 
-    public MagaluProductService(WebDriver driver){super(driver);}
+    public MagaluProductService(ProductRepository repository){super(repository);}
 
     @Override
     protected HashMap<String,String> getDriverConfig(){
