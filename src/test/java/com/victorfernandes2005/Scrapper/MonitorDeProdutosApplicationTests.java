@@ -5,10 +5,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.victorfernandes2005.Scrapper.model.ProductModel;
 import com.victorfernandes2005.Scrapper.service.MagaluProductService;
+import com.victorfernandes2005.Scrapper.service.ProductService;
+import com.victorfernandes2005.Scrapper.service.ProductServiceFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;;
@@ -46,9 +49,9 @@ class MonitorDeProdutosApplicationTests {
 	void shouldReturnAProduct(){
 		// O produto usado precisa ser conferido antes de ser testado,
 		// pois os dados vem de terceiros e não é garantido que os dados continuarão sempre os mesmos.
-		MagaluProductService mps = new MagaluProductService(new FirefoxDriver());
+		ProductService mps = ProductServiceFactory.getService("magazine");
 		String url = "https://www.magazineluiza.com.br/martelo-31mm-bellota-prof-cb-longo/p/cfb45af6cc/fs/fmar/?seller_id=uaiexpress1";
-		ProductModel product = mps.makeProduct(url);
+		ProductModel product = mps.makeProduct(new FirefoxDriver(),url);
 
 		String expectedName = "Martelo 31mm bellota prof.cb longo";
 		Double expectedPrice = 109.82;
