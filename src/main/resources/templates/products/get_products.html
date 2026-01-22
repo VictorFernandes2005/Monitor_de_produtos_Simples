@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <a href="products/add">Novo Produto</a>
+        <h3 th:if="${#lists.size(products)}==0">Nenhum produto Cadastrado</h3>
+        <table th:unless="${#lists.size(products)}==0">
+        <tr>
+            <td>teste</td>
+        </tr>
+        </table>
+    </body>
+</html>
