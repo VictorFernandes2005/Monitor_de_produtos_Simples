@@ -60,4 +60,22 @@ public abstract class ProductService {
 
         return p;
     }
+
+    /**
+     * Retorna um Iterable com todos os ProductModel encontrados no banco de dados.
+     * @return products 
+    */
+    public Iterable<ProductModel> findAll(){
+        return repository.findAll();
+    }
+
+    /**
+     * Salva o ProductModel no banco de dados e em seguida o retorna.
+     * @param product
+     * @return savedProduct
+    */
+    public ProductModel save(ProductModel product){
+        return repository.save(product);
+    }
+    
 }

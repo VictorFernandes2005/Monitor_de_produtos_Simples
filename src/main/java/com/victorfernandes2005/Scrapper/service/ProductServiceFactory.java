@@ -9,14 +9,16 @@ import com.victorfernandes2005.Scrapper.repository.ProductRepository;
 @Service
 public class ProductServiceFactory {
 
-    private static ProductRepository repository;
+    private ProductRepository repository;
 
-    public ProductServiceFactory(ProductRepository repository){ProductServiceFactory.repository = repository;}
+    public ProductServiceFactory(ProductRepository repository){this.repository = repository;}
 
     /**
-     * 
+     * Retorna uma nova instacia de um objeto derivado do ProductService, dependendo do serviço especificado.
+     * @param service
+     * @return newService
     */
-    public static ProductService getService(String service){
+    public ProductService getService(String service){
         service = service.toLowerCase();
         switch(service){
             case "magazine":
