@@ -19,6 +19,9 @@ import static org.assertj.core.api.Assertions.offset;;
 @SpringBootTest
 class MonitorDeProdutosApplicationTests {
 
+	@Autowired
+	ProductServiceFactory sf;
+
 	@Test
 	void contextLoads() {
 	}
@@ -49,7 +52,8 @@ class MonitorDeProdutosApplicationTests {
 	void shouldReturnAProduct(){
 		// O produto usado precisa ser conferido antes de ser testado,
 		// pois os dados vem de terceiros e não é garantido que os dados continuarão sempre os mesmos.
-		ProductService mps = ProductServiceFactory.getService("magazine");
+		
+		ProductService mps = sf.getService("magazine");
 		String url = "https://www.magazineluiza.com.br/martelo-31mm-bellota-prof-cb-longo/p/cfb45af6cc/fs/fmar/?seller_id=uaiexpress1";
 		ProductModel product = mps.makeProduct(new FirefoxDriver(),url);
 
