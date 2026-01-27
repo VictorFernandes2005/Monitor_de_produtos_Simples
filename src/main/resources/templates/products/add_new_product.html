@@ -1,9 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <title>Adicionar Produto</title>
     </head>
     <body>
-        add teste
+        <!--Form 1-->
+        <form action="makeProductAction" method="post">
+            <table>
+                <tr>
+                    <td><p>Insira a url do produto:</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="productURL" type="text" placeholder="URL...">
+                        <p th:if="${error}!=null" th:text="${error}"></p>
+                    </td>
+                    <td><input name="criar" type="submit" value="Criar Produto"></td>
+                </tr>
+            </table>
+        </form>
+        <!--Form 2-->
+        <form action="saveProductAction" method="post" th:if="${newProduct}!=null" th:object="${newProduct}">
+            <table>
+                <tr>
+                    <td><input name="name" type="text" th:field="*{name}" readonly></td>
+                    <td rowspan="2">
+                        <img th:src="*{imgPath}" alt="product image">
+                        <input name="imgPath" type="hidden" th:field="*{imgPath}">
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="price" type="text" th:field="*{price}" readonly></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><p>Deseja salvar este Produto:</p></td>
+                </tr>
+                <tr>
+                    <td><input name="salvar" type="submit" value="Salvar"></td>
+                    <td><input name="cancelar" type="button" value="Cancelar"></td>
+                </tr>
+            </table>
+        </form>
     </body>
 </html>

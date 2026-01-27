@@ -5,10 +5,15 @@
     </head>
     <body>
         <a href="products/add">Novo Produto</a>
-        <h3 th:if="${#lists.size(products)}==0">Nenhum produto Cadastrado</h3>
-        <table th:unless="${#lists.size(products)}==0">
-        <tr>
-            <td>teste</td>
+        <h3>Nenhum produto Cadastrado</h3>
+        <table >
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">id</td>
+            <td>|</td>
+            <td th:text="${product.name}">nome</td>
+            <td>|</td>
+            <td th:text="${product.price}">preco</td>
+            <td>|</td>
         </tr>
         </table>
     </body>
