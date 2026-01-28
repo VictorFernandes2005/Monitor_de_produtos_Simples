@@ -1,10 +1,14 @@
 package com.victorfernandes2005.Scrapper.service;
 
+import java.time.Duration;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.stereotype.Service;
 import com.victorfernandes2005.Scrapper.model.ProductModel;
 import com.victorfernandes2005.Scrapper.repository.ProductRepository;
@@ -39,7 +43,16 @@ public abstract class ProductService {
      * @param url
      * @return product
     */
-    public ProductModel makeProduct(WebDriver driver, String url){
+    public ProductModel makeProduct(String url){
+
+        FirefoxOptions ffop = new FirefoxOptions();
+        ffop.addArguments("--headlless");
+        ffop.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        
+        FirefoxDriver driver = new FirefoxDriver(ffop);
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+            
+
         ProductModel p = new ProductModel();
 
         HashMap<String,String> keys = getDriverConfig();
