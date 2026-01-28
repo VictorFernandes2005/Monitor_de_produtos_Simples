@@ -1,12 +1,15 @@
 package com.victorfernandes2005.Scrapper.controller;
 
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,12 +38,6 @@ public class ProductController {
         this.service = sf.getService("magazine");
     }
 
-    private WebDriver getWebDriver(String web){
-        web = web.toLowerCase();
-        if(web.contains("firefox")){return new FirefoxDriver();}
-        if(web.contains("chrome")){return new ChromeDriver();}
-        return new FirefoxDriver();
-    }
 
     @GetMapping("products")
     public String viewProductsGet(Model model){
@@ -63,10 +60,8 @@ public class ProductController {
             model.addAttribute("error", "Valor Url em branco!");
         }
         else{
-            UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-            String browser = userAgent.getBrowser().getName();
-
-            ProductModel newProduct = service.makeProduct(new FirefoxDriver(), url);
+            
+            ProductModel newProduct = service.makeProduct(url);
             model.addAttribute("newProduct", newProduct);
             
         }
