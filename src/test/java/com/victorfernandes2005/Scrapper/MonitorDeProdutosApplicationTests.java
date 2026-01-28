@@ -55,7 +55,7 @@ class MonitorDeProdutosApplicationTests {
 		
 		ProductService mps = sf.getService("magazine");
 		String url = "https://www.magazineluiza.com.br/martelo-31mm-bellota-prof-cb-longo/p/cfb45af6cc/fs/fmar/?seller_id=uaiexpress1";
-		ProductModel product = mps.makeProduct(new FirefoxDriver(),url);
+		ProductModel product = mps.makeProduct(url);
 
 		String expectedName = "Martelo 31mm bellota prof.cb longo";
 		Double expectedPrice = 109.82;
